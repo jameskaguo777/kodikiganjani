@@ -1,5 +1,13 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
+
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +22,18 @@
 Route::get('/', function () {
     return view('dashboard');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('login', function () {
+    return view('auth.login');   
+})->name('login');
+
+// Route::get('/register-view', function ($id) {
+//     return view('auth.register');
+// })->name('register-view');
+
 
 Route::group(['prefix' => 'email'], function(){
     Route::get('inbox', function () { return view('pages.email.inbox'); });
@@ -94,8 +114,8 @@ Route::group(['prefix' => 'general'], function(){
 });
 
 Route::group(['prefix' => 'auth'], function(){
-    Route::get('login', function () { return view('pages.auth.login'); });
-    Route::get('register', function () { return view('pages.auth.register'); });
+    Route::get('pages/login', function () { return view('pages.auth.login'); });
+    Route::get('pages/register', function () { return view('pages.auth.register'); });
 });
 
 Route::group(['prefix' => 'error'], function(){
@@ -112,3 +132,4 @@ Route::get('/clear-cache', function() {
 Route::any('/{page?}',function(){
     return View::make('pages.error.404');
 })->where('page','.*');
+

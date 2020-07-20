@@ -42,6 +42,8 @@ class RouteServiceProvider extends ServiceProvider
         //
     }
 
+    public const HOME = '/home';
+
     /**
      * Define the "web" routes for the application.
      *
