@@ -28,10 +28,10 @@
         <div class="collapse {{ show_class(['email/*']) }}" id="email">
           <ul class="nav sub-menu">
             <li class="nav-item">
-              <a href="{{ url('/email/inbox') }}" class="nav-link {{ active_class(['email/inbox']) }}">create</a>
+              <a href="{{ route('news-create') }}" class="nav-link {{ active_class(['email/inbox']) }}">create</a>
             </li>
             <li class="nav-item">
-              <a href="{{ url('/email/read') }}" class="nav-link {{ active_class(['email/read']) }}">View</a>
+              <a href="{{ route('news-index') }}" class="nav-link {{ active_class(['email/read']) }}">View</a>
             </li>
             {{-- <li class="nav-item">
               <a href="{{ url('/email/compose') }}" class="nav-link {{ active_class(['email/compose']) }}">Compose</a>

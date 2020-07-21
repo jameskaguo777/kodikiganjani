@@ -32,7 +32,7 @@
          </div>
          <div class="form-group">
            <label for="tags">Tags (Separate with comma)</label>
-           <input name="tags" id="tags" value="New York,Texas,Florida,New Mexico" />
+           <input name="tags" id="tags" />
          </div>
     
           <button class="btn btn-primary" type="submit">Submit form</button>

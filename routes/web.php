@@ -39,8 +39,9 @@ Route::get('/news', function ($id) {
 });
 
 Route::group(['prefix' => 'news'], function () {
-    Route::get('create', 'NewsPostController@create');
+    Route::get('create', 'NewsPostController@create')->name('news-create');
     Route::post('store', 'NewsPostController@store')->name('news-create-store');
+    Route::get('index', 'NewsPostController@index')->name('news-index');
 
 });
 
