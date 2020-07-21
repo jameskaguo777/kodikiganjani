@@ -34,6 +34,16 @@ Route::get('login', function () {
 //     return view('auth.register');
 // })->name('register-view');
 
+Route::get('/news', function ($id) {
+    
+});
+
+Route::group(['prefix' => 'news'], function () {
+    Route::get('create', 'NewsPostController@create');
+    Route::post('store', 'NewsPostController@store')->name('news-create-store');
+
+});
+
 
 Route::group(['prefix' => 'email'], function(){
     Route::get('inbox', function () { return view('pages.email.inbox'); });
