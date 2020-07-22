@@ -1,7 +1,7 @@
 <nav class="sidebar">
   <div class="sidebar-header">
     <a href="#" class="sidebar-brand">
-      Noble<span>UI</span>
+      Kodi<span> Kiganjani</span>
     </a>
     <div class="sidebar-toggler not-active">
       <span></span>
@@ -19,19 +19,19 @@
         </a>
       </li>
       <li class="nav-item nav-category">App Configuration</li>
-      <li class="nav-item {{ active_class(['email/*']) }}">
-        <a class="nav-link" data-toggle="collapse" href="#email" role="button" aria-expanded="{{ is_active_route(['email/*']) }}" aria-controls="email">
+      <li class="nav-item {{ active_class(['*/news/*']) }}">
+        <a class="nav-link" data-toggle="collapse" href="#news" role="button" aria-expanded="{{ is_active_route(['*/news/*']) }}" aria-controls="news">
           <i class="link-icon" data-feather="mail"></i>
           <span class="link-title">News</span>
           <i class="link-arrow" data-feather="chevron-down"></i>
         </a>
-        <div class="collapse {{ show_class(['email/*']) }}" id="email">
+        <div class="collapse {{ show_class(['*/news/*']) }}" id="news">
           <ul class="nav sub-menu">
             <li class="nav-item">
-              <a href="{{ route('news-create') }}" class="nav-link {{ active_class(['email/inbox']) }}">create</a>
+              <a href="{{ route('news-create') }}" class="nav-link {{ active_class(['*/news/create']) }}">create</a>
             </li>
             <li class="nav-item">
-              <a href="{{ route('news-index') }}" class="nav-link {{ active_class(['email/read']) }}">View</a>
+              <a href="{{ route('news-index') }}" class="nav-link {{ active_class(['*/news/index']) }}">View</a>
             </li>
             {{-- <li class="nav-item">
               <a href="{{ url('/email/compose') }}" class="nav-link {{ active_class(['email/compose']) }}">Compose</a>
@@ -39,14 +39,14 @@
           </ul>
         </div>
       </li>
-      <li class="nav-item {{ active_class(['apps/chat']) }}">
-        <a href="{{ url('/apps/chat') }}" class="nav-link">
+      <li class="nav-item {{ active_class(['*/tax/calculator/*']) }}">
+        <a href="{{ route('tax-calculator-index') }}" class="nav-link">
           <i class="link-icon" data-feather="message-square"></i>
           <span class="link-title">Tax Calculator</span>
         </a>
       </li>
-      <li class="nav-item {{ active_class(['apps/calendar']) }}">
-        <a href="{{ url('/apps/calendar') }}" class="nav-link">
+      <li class="nav-item {{ active_class(['*/tax/calender/*']) }}">
+        <a href="{{ route('tax-calender-index') }}" class="nav-link">
           <i class="link-icon" data-feather="calendar"></i>
           <span class="link-title">Tax Calendar</span>
         </a>
@@ -58,26 +58,35 @@
         </a>
       </li>
       <li class="nav-item nav-category">App Info Page</li>
-      <li class="nav-item {{ active_class(['ui-components/*']) }}">
-        <a class="nav-link" data-toggle="collapse" href="#uiComponents" role="button" aria-expanded="{{ is_active_route(['ui-components/*']) }}" aria-controls="uiComponents">
+      <li class="nav-item {{ active_class(['*/inc_tax_fill/*']) }}">
+        <a class="nav-link" href="{{ route('inc-tax-index') }}">
           <i class="link-icon" data-feather="feather"></i>
           <span class="link-title">Income Tax Return Filling</span>
           {{-- <i class="link-arrow" data-feather="chevron-down"></i> --}}
         </a>
         
       </li>
-      <li class="nav-item {{ active_class(['charts/*']) }}">
-        <a class="nav-link" data-toggle="collapse" href="#charts" role="button" aria-expanded="{{ is_active_route(['charts/*']) }}" aria-controls="charts">
+      <li class="nav-item {{ active_class(['*/reg_new_business/*']) }}">
+        <a class="nav-link" href="{{ route('reg-business-index') }}" >
           <i class="link-icon" data-feather="pie-chart"></i>
           <span class="link-title">Registering New Business</span>
-          <i class="link-arrow" data-feather="chevron-down"></i>
+          {{-- <i class="link-arrow" data-feather="chevron-down"></i> --}}
         </a>
         
       </li>
-      <li class="nav-item {{ active_class(['tables/*']) }}">
-        <a class="nav-link" data-toggle="collapse" href="#tables" role="button" aria-expanded="{{ is_active_route(['tables/*']) }}" aria-controls="tables">
+      <li class="nav-item {{ active_class(['*/contacts/*']) }}">
+        <a class="nav-link" href="{{ route('contacts-index') }}" >
           <i class="link-icon" data-feather="layout"></i>
           <span class="link-title">Contacts</span>
+          {{-- <i class="link-arrow" data-feather="chevron-down"></i> --}}
+        </a>
+        
+      </li>
+
+      <li class="nav-item {{ active_class(['*/about_info/*']) }}">
+        <a class="nav-link" href="{{ route('about-info-index') }}" >
+          <i class="link-icon" data-feather="layout"></i>
+          <span class="link-title">About info</span>
           {{-- <i class="link-arrow" data-feather="chevron-down"></i> --}}
         </a>
         

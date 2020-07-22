@@ -1,11 +1,12 @@
 @extends('layouts.app')
 @push('plugin-styles')
-  <link href="{{ asset('assets/plugins/simplemde/simplemde.min.css') }}" rel="stylesheet" />
-  <link href="{{ asset('assets/plugins/dropify/css/dropify.min.css') }}" rel="stylesheet" />
-  <link href="{{ asset('assets/plugins/jquery-tags-input/jquery.tagsinput.min.css') }}" rel="stylesheet" />
-  <link href="{{ asset('assets/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" />
-  <link href="{{ asset('assets/plugins/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
-  <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" />
+<link href="{{ asset('assets/plugins/simplemde/simplemde.min.css') }}" rel="stylesheet" />
+<link href="{{ asset('assets/plugins/dropify/css/dropify.min.css') }}" rel="stylesheet" />
+<link href="{{ asset('assets/plugins/jquery-tags-input/jquery.tagsinput.min.css') }}" rel="stylesheet" />
+<link href="{{ asset('assets/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" />
+<link href="{{ asset('assets/plugins/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
+<link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" />
+
 @endpush
 @section('content')
 
@@ -14,30 +15,15 @@
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <h6 class="card-title">Create Post</h6>
-        <form method="POST" action="{{ route('news-create-store') }}" enctype="multipart/form-data">
+        <h6 class="card-title">Edit Post</h6>
+        <form method="POST" action="{{ route('inc-tax-store') }}" enctype="multipart/form-data">
           @csrf
-          <div class="form-group">
-            <label for="exampleInputText1">News Title</label>
-            <input name="title" type="text" class="form-control" id="exampleInputText1" placeholder="Enter Very Short News Titile">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail3">Summary</label>
-            <input name="summary" type="text" class="form-control" id="exampleInputEmail3" placeholder="Enter Very Short Summary">
-          </div>
+          
          <div class="form-group">
             <label for="tinymceExample">Post Content</label>
-            <textarea name="post" class="form-control" name="tinymce" id="tinymceExample" rows="10"></textarea>
+            <textarea name="post" class="form-control" name="tinymce" id="tinymceExample" rows="50">{!! $inc_tax->post !!}</textarea>
          </div>
-         <div class="form-group">
-           <label for="myDropify"></label>
-           <input name="featured_image_url" type="file" id="myDropify" class="border"/>
-         </div>
-         <div class="form-group">
-           <label for="tags">Tags (Separate with comma)</label>
-           <div><input name="tags" id="tags" /></div>
-           
-         </div>
+         
     
           <button class="btn btn-primary" type="submit">Submit form</button>
         </form>

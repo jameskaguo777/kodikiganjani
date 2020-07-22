@@ -1,4 +1,4 @@
-@section('notification')
+
 @if (count($errors) > 0)
 <div class="alert alert-danger">
   <h4 class="alert-heading">Errors</h4>
@@ -11,7 +11,12 @@
     <hr>
     <p class="mb-0">If problem persist please contact your Admin</p>
 </div>
+
 @endif 
-@endsection
+@if (session('status'))
+<div class="alert alert-{{ session('status')['status'] }}" role="alert">{{ session('status')['message'] }}</div>
+@endif
+
+
 
 

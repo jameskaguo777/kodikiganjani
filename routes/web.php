@@ -34,14 +34,43 @@ Route::get('login', function () {
 //     return view('auth.register');
 // })->name('register-view');
 
-Route::get('/news', function ($id) {
-    
-});
 
-Route::group(['prefix' => 'news'], function () {
-    Route::get('create', 'NewsPostController@create')->name('news-create');
-    Route::post('store', 'NewsPostController@store')->name('news-create-store');
-    Route::get('index', 'NewsPostController@index')->name('news-index');
+Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
+
+
+    Route::group(['prefix' => 'news'], function () {
+        Route::get('create', 'NewsPostController@create')->name('news-create');
+        Route::post('store', 'NewsPostController@store')->name('news-create-store');
+        Route::get('index', 'NewsPostController@index')->name('news-index');
+        Route::get('show/{id}', 'NewsPostController@show')->name('news-show');
+        Route::get('edit/{id}', 'NewsPostController@edit')->name('news-edit');
+        Route::post('edit/update/{id}', 'NewsPostController@update')->name('news-edit-update');
+        Route::delete('show/delete/{id}', 'NewsPostController@destroy')->name('news-show-delete');
+
+    });
+
+    Route::group(['prefix' => 'tax'], function () {
+        Route::get('calculator/index', 'TaxCalculatorController@index')->name('tax-calculator-index');
+        Route::delete('calculator/delete/{id}', 'TaxCalculatorController@destroy')->name('tax-calculator-delete');
+        Route::post('calculator/store', 'TaxCalculatorController@store')->name('tax-calculator-store');
+
+        Route::get('calender/index', 'TaxCalenderController@index')->name('tax-calender-index');
+        Route::delete('calender/delete/{id}', 'TaxCalenderController@destroy')->name('tax-calender-delete');
+        Route::post('calender/store', 'TaxCalenderController@store')->name('tax-calender-store');
+    });
+
+    Route::get('reg_new_business/index', 'RegisterNewBusinessController@index')->name('reg-business-index');
+    Route::post('reg_new_business/store', 'RegisterNewBusinessController@store')->name('reg-business-store');
+
+    Route::get('inc_tax_fill/index', 'IncomeTaxReturnController@index')->name('inc-tax-index');
+    Route::post('inc_tax_fill/store', 'IncomeTaxReturnController@store')->name('inc-tax-store');
+
+    Route::get('contacts/index', 'ContactInfoController@index')->name('contacts-index');
+    Route::delete('contacts/delete/{id}', 'ContactInfoController@destroy')->name('contacts-delete');
+    Route::post('contacts/store', 'ContactInfoController@store')->name('contacts-store');
+
+    Route::get('about_info/index', 'AboutInfoController@index')->name('about-info-index');
+    Route::post('about_info/store', 'AboutInfoController@store')->name('about-info-store');
 
 });
 
@@ -124,7 +153,7 @@ Route::group(['prefix' => 'general'], function(){
     Route::get('timeline', function () { return view('pages.general.timeline'); });
 });
 
-Route::group(['prefix' => 'auth'], function(){
+Route::group(['prefix' => 'auth-test'], function(){
     Route::get('pages/login', function () { return view('pages.auth.login'); });
     Route::get('pages/register', function () { return view('pages.auth.register'); });
 });

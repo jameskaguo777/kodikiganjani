@@ -40,7 +40,7 @@
         @endif
       
       <div class="page-content">
-        @yield('notification')
+        @include('layouts.notify')
         @yield('content')
       </div>
       @include('layouts.footer')

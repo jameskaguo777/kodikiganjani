@@ -90,7 +90,7 @@ $(function() {
       {
         id: '10',
         start: curYear+'-'+curMonth+'-04',
-        end: curYear+'-'+curMonth+'-06',
+        end: curYear+'-'+curMonth+'-05',
         title: 'Feast Day'
       },
       {
