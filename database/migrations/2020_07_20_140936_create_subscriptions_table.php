@@ -17,7 +17,7 @@ class CreateSubscriptionsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->reference('id')->on('users');
             $table->unsignedBigInteger('packages_id')->reference('id')->on('packages');
-            $table->time('date_subscribed');
+            $table->date('date_subscribed');
             $table->timestamps();
         });
     }

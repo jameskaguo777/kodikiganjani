@@ -13,7 +13,7 @@
         <input type="text" class="form-control" id="navbarForm" placeholder="Search here...">
       </div>
     </form>
-    <ul class="navbar-nav">
+    {{-- <ul class="navbar-nav">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="flag-icon flag-icon-us mt-1" title="us"></i> <span class="font-weight-medium ml-1 mr-1">English</span>
@@ -232,6 +232,6 @@
           </div>
         </div>
       </li>
-    </ul>
+    </ul> --}}
   </div>
 </nav>

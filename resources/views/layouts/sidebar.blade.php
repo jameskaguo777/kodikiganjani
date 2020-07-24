@@ -12,8 +12,8 @@
   <div class="sidebar-body">
     <ul class="nav">
       <li class="nav-item nav-category">Main</li>
-      <li class="nav-item {{ active_class(['/']) }}">
-        <a href="{{ url('/') }}" class="nav-link">
+      <li class="nav-item {{ active_class(['*/admin']) }}">
+        <a href="{{ url('/admin/') }}" class="nav-link">
           <i class="link-icon" data-feather="box"></i>
           <span class="link-title">Dashboard</span>
         </a>
@@ -118,6 +118,15 @@
           {{-- <i class="link-arrow" data-feather="chevron-down"></i> --}}
         </a>
        
+      </li>
+
+      <li class="nav-item {{ active_class(['*/payment_conf_index/*']) }}">
+        <a class="nav-link" href="{{ route('pay-conf-index') }}" >
+          <i class="link-icon" data-feather="layout"></i>
+          <span class="link-title">Payment Configuration</span>
+          {{-- <i class="link-arrow" data-feather="chevron-down"></i> --}}
+        </a>
+        
       </li>
     
       
