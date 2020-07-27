@@ -16,7 +16,7 @@ class NewsPostController extends Controller
     public function index()
     {
         //
-        $news_post = NewsPost::get();
+        $news_post = NewsPost::orderByDesc('id')->get();
         return response()->json([
             'status' => 200,
             'data' => $news_post,

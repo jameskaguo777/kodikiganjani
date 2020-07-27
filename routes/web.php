@@ -28,9 +28,11 @@ Route::get('login', function () {
     return view('auth.login');   
 })->name('login');
 
-Route::get('/', function () {
-    return view('auth.login');   
-})->name('login');
+Route::get('/', 'HomeController@index')->name('home');
+
+// Route::get('/', function () {
+//     return view('auth.login');   
+// })->name('login');
 
 // Route::get('/register-view', function ($id) {
 //     return view('auth.register');
@@ -39,6 +41,7 @@ Route::get('/', function () {
 
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/home', 'HomeController@index')->name('home');
 
     Route::group(['prefix' => 'news'], function () {
         Route::get('create', 'NewsPostController@create')->name('news-create');
@@ -60,6 +63,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
         Route::delete('calender/delete/{id}', 'TaxCalenderController@destroy')->name('tax-calender-delete');
         Route::post('calender/store', 'TaxCalenderController@store')->name('tax-calender-store');
     });
+
+    Route::get('notification/index', 'NotificationCenterController@index')->name('noti-index');
+    Route::post('notification/store', 'NotificationCenterController@store')->name('noti-store');
+    Route::delete('notification/delete/{id}', 'NotificationCenterController@destroy')->name('noti-delete');
 
     Route::get('reg_new_business/index', 'RegisterNewBusinessController@index')->name('reg-business-index');
     Route::post('reg_new_business/store', 'RegisterNewBusinessController@store')->name('reg-business-store');
@@ -90,6 +97,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');
     return "Cache is cleared";
+});
+
+Route::get('/storage-link/1952', function(){
+    Artisan::call('storage:link', []);
+    return 'Linked';
 });
 
 // 404 for undefined routes

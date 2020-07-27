@@ -51,8 +51,8 @@
           <span class="link-title">Tax Calendar</span>
         </a>
       </li>
-      <li class="nav-item {{ active_class(['apps/calendar']) }}">
-        <a href="{{ url('/apps/calendar') }}" class="nav-link">
+      <li class="nav-item {{ active_class(['*/notification/index']) }}">
+        <a href="{{ route('noti-index') }}" class="nav-link">
           <i class="link-icon" data-feather="calendar"></i>
           <span class="link-title">Notification</span>
         </a>

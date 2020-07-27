@@ -97,7 +97,7 @@ class PaidSubscribersController extends Controller
 
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
-            'Accept' => 'application/json'
+            'Accept' => 'application/json',
         ])->post($vusha_url, [
             'header' => [
                 'username' => $vusha_username,

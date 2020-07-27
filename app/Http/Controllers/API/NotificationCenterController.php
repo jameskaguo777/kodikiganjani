@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\NotificationCenter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+
 
 class NotificationCenterController extends Controller
 {
@@ -16,10 +18,12 @@ class NotificationCenterController extends Controller
     public function index()
     {
         //
-        $noti_center = NotificationCenter::get();
+        $noti_center = NotificationCenter::orderByDesc('id')->get();
+        
         return response()->json([
             'status' => 200,
             'data' => $noti_center,
+            
             'message' => 'OK',
         ]);
 

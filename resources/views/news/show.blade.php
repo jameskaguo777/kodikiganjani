@@ -12,7 +12,7 @@
       @if (Storage::disk('public')->exists($newspost->featured_image_url))
       <img src="{{ Storage::url($newspost->featured_image_url) }}" class="card-img-top" alt="...">
       @else
-      <img src="https://miro.medium.com/max/3150/1*J_BOSSzUz4qBvAjFb-YgZA@2x.jpeg" class="card-img-top" alt="...">
+      <img src="https://via.placeholder.com/800x300" class="card-img-top" alt="...">
       @endif
       <div class="card-body">
         <h6 class="card-title">{{ $newspost->title }}</h6>
