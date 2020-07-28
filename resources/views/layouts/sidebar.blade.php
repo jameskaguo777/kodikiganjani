@@ -111,8 +111,8 @@
           </ul>
         </div>
       </li>
-      <li class="nav-item {{ active_class(['auth/*']) }}">
-        <a class="nav-link" data-toggle="collapse" href="#auth" role="button" aria-expanded="{{ is_active_route(['auth/*']) }}" aria-controls="auth">
+      <li class="nav-item {{ active_class(['*/packages/*']) }}">
+        <a class="nav-link" href="{{ route('packages-index') }}">
           <i class="link-icon" data-feather="unlock"></i>
           <span class="link-title">Packages</span>
           {{-- <i class="link-arrow" data-feather="chevron-down"></i> --}}
@@ -120,7 +120,7 @@
        
       </li>
 
-      <li class="nav-item {{ active_class(['*/payment_conf_index/*']) }}">
+      <li class="nav-item {{ active_class(['*/payment_conf_index']) }}">
         <a class="nav-link" href="{{ route('pay-conf-index') }}" >
           <i class="link-icon" data-feather="layout"></i>
           <span class="link-title">Payment Configuration</span>

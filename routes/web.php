@@ -1,5 +1,6 @@
 <?php
 
+use App\Package;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -81,8 +82,15 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::get('about_info/index', 'AboutInfoController@index')->name('about-info-index');
     Route::post('about_info/store', 'AboutInfoController@store')->name('about-info-store');
 
-    Route::get('/payment_conf_index', 'PaymentConfigurationController@index')->name('pay-conf-index');
-    Route::post('/payement_conf_update', 'PaymentConfigurationController@update')->name('pay-conf-update');
+    Route::get('payment_conf_index', 'PaymentConfigurationController@index')->name('pay-conf-index');
+    Route::post('payement_conf_update', 'PaymentConfigurationController@update')->name('pay-conf-update');
+
+    Route::get('packages/index', function () {
+        $packages = Package::get();
+        return view('packages.index', compact('packages'));
+    })->name('packages-index');
+    Route::delete('packages/delete/{id}', 'PackageController@destroy')->name('packages-delete');
+    Route::post('packages/store', 'PackageController@store')->name('packages-store');
 
 });
 
