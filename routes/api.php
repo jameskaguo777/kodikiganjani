@@ -66,7 +66,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
   Route::get('/tax_calculator_index', 'API\TaxCalculatorController@index');
   Route::get('/tax_calender_index', 'API\TaxCalenderController@index');
   Route::post('/payment', 'API\PaidSubscribersController@push');
-  Route::post('/logout/{id}', function($id, User $user){
-    $user->tokens()->where('id', $id)->delete();
+  Route::get('/logout', function(User $user){
+    $user = User::where('id',  auth()->user()->id)->first();
+    $user->tokens()->delete();
+    return response()->json([
+        'logout' => 'logout',
+        
+    ]);
   });
 });
