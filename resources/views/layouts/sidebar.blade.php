@@ -99,13 +99,13 @@
           <span class="link-title">Users</span>
           <i class="link-arrow" data-feather="chevron-down"></i>
         </a>
-        <div class="collapse {{ show_class(['general/*']) }}" id="general">
+        <div class="collapse {{ show_class(['*/subscribers/*']) }}" id="general">
           <ul class="nav sub-menu">
             <li class="nav-item">
-              <a href="{{ url('/general/blank-page') }}" class="nav-link {{ active_class(['general/blank-page']) }}">Subscribers</a>
+              <a href="{{ route('sub-index') }}" class="nav-link {{ active_class(['*/subscribers/users']) }}">Subscribers</a>
             </li>
             <li class="nav-item">
-              <a href="{{ url('/general/faq') }}" class="nav-link {{ active_class(['general/faq']) }}">Expired Subscribers</a>
+              <a href="{{ route('sub-expired') }}" class="nav-link {{ active_class(['*/subscribers/expired_subs']) }}">Expired Subscribers</a>
             </li>
             
           </ul>

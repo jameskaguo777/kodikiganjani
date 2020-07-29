@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subscription extends Model
 {
-    //
+    //, 'active', 'remaining_days', 'expiration'
     protected $fillable = [ 'user_id', 'packages_id', 'date_subscribed' ];
 
     public function user(){

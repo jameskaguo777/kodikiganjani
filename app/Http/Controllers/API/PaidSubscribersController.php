@@ -153,7 +153,7 @@ class PaidSubscribersController extends Controller
                 'user_id' => auth()->user()->id,
             ],
             [
-                'package_id' => $request->package_id,
+                'packages_id' => $request->package_id,
                 'date_subscribed' => $date_s,
                 'expiration' => Carbon::now()->copy()->addDays($request['sub_time'])->format('Y-m-d'),
             ]
@@ -213,8 +213,7 @@ class PaidSubscribersController extends Controller
         
         if ($result_code == '0' && $header['username'] == $vusha_username) {
 
-            $paid_subs = DB::table('paid_subscribers')
-            ->where('reference', $reference);
+            $paid_subs = PaidSubscriber::where('reference', $reference);
             
             $paid_subs
                 ->update([
@@ -226,9 +225,10 @@ class PaidSubscribersController extends Controller
 
             if ($result_code=='0') {
                 $date_s = Carbon::now();
-                $user_id = User::where('email', $paid_subs->email)->id;
+                $paid_subs = $paid_subs->first();
+                $user_id = User::where('email', $paid_subs->user_email)->first()->id;
                 $sub_ = Subscription::where('user_id', $user_id);
-                $duration = Package::where('id', $sub_->packages_id)->duration;
+                $duration = Package::where('id', $sub_->first()->packages_id)->first()->duration;
                 
                
                 $sub_->update([

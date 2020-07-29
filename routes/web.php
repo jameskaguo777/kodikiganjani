@@ -92,6 +92,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::delete('packages/delete/{id}', 'PackageController@destroy')->name('packages-delete');
     Route::post('packages/store', 'PackageController@store')->name('packages-store');
 
+    Route::get('subscribers/users', 'SubscriptionController@index')->name('sub-index');
+    Route::get('subscribers/expired_subs', 'SubscriptionController@expired')->name('sub-expired');
+
 });
 
 

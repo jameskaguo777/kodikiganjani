@@ -17,17 +17,46 @@ class SubscriptionController extends Controller
     public function index()
     {
         //
-        $model = Subscription::get();
+        $user = auth()->user()->id;
+        $subscriber = Subscription::where('user_id', $user);
 
-        $user = auth()->user();
-        $subscriber = $user->subscriber;
-        return response()->json([
-            'status' => 200,
-            'data' => $subscriber,
-            'message' => 'OK',
+        if ($subscriber->exists()) {
+            // $model = Subscription::get();
+        $date_s = Carbon::now();
+            $sub_time = Carbon::parse($subscriber->first()->expiration);
+            $date_passed = $sub_time>$date_s;
+
+            if ($date_passed) {
+                Subscription::where('user_id', $user)->update([
+                    
+                    'remaining_days' => $sub_time->diffInDays($date_s),
+                ]);
+            } else {
+                Subscription::where('user_id', $user)->update([
+                    'active' => false,
+                    'remaining_days' => 0,
+                ]);
+            }
             
+
             
-        ]);
+            return response()->json([
+                'status' => 200,
+                'data' => auth()->user()->subscriber,
+                'message' => 'OK',
+                
+                
+            ]);
+        } else {
+            return response()->json([
+                'status' => 200,
+                'data' => '0',
+                'message' => 'OK',
+                
+                
+            ]);
+        }
+        
     }
 
     /**
