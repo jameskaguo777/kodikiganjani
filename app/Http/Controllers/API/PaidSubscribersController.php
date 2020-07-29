@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Package;
 use App\PaidSubscriber;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -11,6 +12,7 @@ use App\PaymentConfiguration;
 use App\Subscription;
 use App\Vushacallback;
 use App\User;
+use Exception;
 use Illuminate\Http\Request;
 
 
@@ -79,7 +81,7 @@ class PaidSubscribersController extends Controller
     }
 
     public function push(Request $request){
-        $vusha_url = 'http://vushapg.vusha.co.tz/gateway/services/v1/collect/push';
+        $vusha_url = 'https://vushapg.vusha.co.tz/gateway/services/v1/collect/push';
         $payment = PaymentConfiguration::find(1)->first();
         $timestamp = Carbon::now()->toDateTimeString();
         $date_s = Carbon::now()->format('Y-m-d');
@@ -95,6 +97,8 @@ class PaidSubscribersController extends Controller
             $vusha_pass = $payment->test_pass;
         }
 
+        try{ 
+
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
@@ -109,39 +113,74 @@ class PaidSubscribersController extends Controller
                     'command' => 'Customer Paybill',
                     'transactionNumber' => $transactionNumber,
                     'paymentDate' => $timestamp,
-                    'msisdn' => $request['number'],
-                    'amount' => $request['amount'],
+                    'msisdn' => $request->number,
+                    'amount' => $request->amount,
                     
                 ]
             ],
         ]);
-        
-        // $return = $response['body']['response'];
 
-        // if ($return['responseCode'] == 0) {
-        //     $paid_customer = PaidSubscriber::create([
+    } catch(Exception $e){
+        return response()->json([
+            'status' => 200,
+            'data' => $e,
+            'message' => 'error',
+            'request' => $request,
+            
+            
+        ]);
+    }
+
+
+    $ta = $response->body();
+
+    if ($response->successful()) {
+        $return = json_decode($response->body())->body->response;
+
+        if ($return->responseCode == 0) {
+            $paid_customer = PaidSubscriber::create([
                 
-        //         'transaction_number' => $transactionNumber,
-        //         'user_email' => $request['email'],
-        //         'reference' => $return['reference'],
-        //         'pre_status' => $return['responseStatus'],
-        //         'pre_response_code' => $return['responseCode'],
-        //         'amount' => $request['amount'],
-        //         'sub_time' => $request['sub_time'],
-        //     ]);
+                'transaction_number' => $transactionNumber,
+                'user_email' => $request['email'],
+                'reference' => $return->reference,
+                'pre_status' => $return->responseStatus,
+                'pre_response_code' => $return->responseCode,
+                'amount' => $request['amount'],
+                'sub_time' => $request['sub_time'],
+            ]);
 
-        //     $subscription = Subscription::updateOrCreate([
-        //         'user_id' => auth()->user()->id,
-        //     ],
-        //     [
-        //         'package_id' => $request->package_id,
-        //         'date_subscribed' => $date_s,
-        //         'expiration' => Carbon::now()->copy()->addDays($request['sub_time'])->format('Y-m-d'),
-        //     ]
-        // );
-        // }
+            $subscription = Subscription::updateOrCreate([
+                'user_id' => auth()->user()->id,
+            ],
+            [
+                'package_id' => $request->package_id,
+                'date_subscribed' => $date_s,
+                'expiration' => Carbon::now()->copy()->addDays($request['sub_time'])->format('Y-m-d'),
+            ]
+        );
+        }
+    } else if($response->failed()){
+        return response()->json([
+            'status' => 200,
+            'data' => $response->body(),
+            'message' => 'error',
+            'request' => $request,
+            
+            
+        ]);
+    }
+    
+        
+        
 
-        return response()->json($response, 200);
+        return response()->json([
+            'status' => 200,
+            'data' => json_decode($response->body())->body->response,
+            'message' => 'OK',
+            'request' => $request,
+            
+            
+        ]);
         
     }
 
@@ -186,9 +225,16 @@ class PaidSubscribersController extends Controller
                 ]);
 
             if ($result_code=='0') {
+                $date_s = Carbon::now();
                 $user_id = User::where('email', $paid_subs->email)->id;
-                $sub_ = Subscription::where('user_id', $user_id)->update([
+                $sub_ = Subscription::where('user_id', $user_id);
+                $duration = Package::where('id', $sub_->packages_id)->duration;
+                
+               
+                $sub_->update([
                     'active' => true,
+                    'remaining_days'=> $duration,
+                    'expiration' => $date_s->addDays($duration),
                 ]);
             }
 
