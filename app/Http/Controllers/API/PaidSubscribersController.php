@@ -85,7 +85,7 @@ class PaidSubscribersController extends Controller
         $payment = PaymentConfiguration::find(1)->first();
         $timestamp = Carbon::now()->toDateTimeString();
         $date_s = Carbon::now()->format('Y-m-d');
-        $transactionNumber = $request['sub_time']. '-' .$request['amount']. '-' .$timestamp;
+        $transactionNumber = $request['sub_time']. '-' .$request['amount']. '-' .$timestamp. '-' .auth()->user()->id;
         $vusha_username = "";
         $vusha_pass = "";
         $timestamp_l = Carbon::now()->timestamp;
