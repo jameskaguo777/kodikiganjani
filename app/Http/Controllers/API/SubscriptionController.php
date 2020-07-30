@@ -28,7 +28,7 @@ class SubscriptionController extends Controller
 
             if ($date_passed) {
                 Subscription::where('user_id', $user)->update([
-                    'active' => true,
+                    
                     'remaining_days' => $sub_time->diffInDays($date_s),
                 ]);
             } else {
