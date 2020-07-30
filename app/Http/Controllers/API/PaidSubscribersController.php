@@ -155,6 +155,7 @@ class PaidSubscribersController extends Controller
             [
                 'packages_id' => $request->package_id,
                 'date_subscribed' => $date_s,
+                'active' => false,
                 'expiration' => Carbon::now()->copy()->addDays($request['sub_time'])->format('Y-m-d'),
             ]
         );
