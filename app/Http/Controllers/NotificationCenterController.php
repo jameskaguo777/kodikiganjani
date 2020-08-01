@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\NotificationCenter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
-
 
 class NotificationCenterController extends Controller
 {
@@ -29,40 +29,33 @@ class NotificationCenterController extends Controller
 
         $url = 'https://fcm.googleapis.com/fcm/send';
 
-        $fields = array (
-                'priority' => 'high',
-                'to' => '/topics/all',
-                'title' => $request->title,
-                'body' => $request->summary,
-                'time_to_live' => 600,
-                // 'click_action'=> 'FLUTTER_NOTIFICATION_CLICK',
-                'data' => array (
-                    'click_action'=> 'FLUTTER_NOTIFICATION_CLICK'
-                )
-        );
-
-
-        $fields = json_encode ( $fields );
-
-        $headers = array (
-                'Authorization: key=' . "AAAAdPJ82Z8:APA91bGbgcM0aXOw8GDuJWEEccsvhp9ZiDu1wcDELgREn-tt1z0DzlgD622nFgJ6zdTmp9TgTMhUNZdjR4P1MzeTce6h_ERFB3Eub7-aTlb7A1ig_2ECmnc5O5RRfBly04HQLvjUf71i",
-                'Content-Type: application/json'
-        );
-
-        $ch = curl_init ();
-        curl_setopt ( $ch, CURLOPT_URL, $url );
-        curl_setopt ( $ch, CURLOPT_POST, true );
-        curl_setopt ( $ch, CURLOPT_HTTPHEADER, $headers );
-        curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, true );
-        curl_setopt ( $ch, CURLOPT_POSTFIELDS, $fields );
-
-        $result = curl_exec ( $ch );
-        // echo $result;
-        curl_close ( $ch );
-
-
-
         $path = $request->file('featured_image_url')->store('notifications');
+
+        $token = "AAAAdPJ82Z8:APA91bGbgcM0aXOw8GDuJWEEccsvhp9ZiDu1wcDELgREn-tt1z0DzlgD622nFgJ6zdTmp9TgTMhUNZdjR4P1MzeTce6h_ERFB3Eub7-aTlb7A1ig_2ECmnc5O5RRfBly04HQLvjUf71i";
+
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json',
+            'Authorization'=> 'key='. $token,
+        ])->post($url, [
+            'notification' => [
+                'body' => $request->summary,
+                'title' => $request->title,
+                'image' => 'http://'.request()->getHttpHost().$path,
+                
+            ],
+            'priority'=> 'high',
+            'data' => [
+                'click_action'=> 'FLUTTER_NOTIFICATION_CLICK',
+                
+                'status'=> 'done',
+                
+            ],
+            'to' => '/topics/all'
+        ]);
+
+
+        
+        
 
         NotificationCenter::create([
             'title' => $request->title,
@@ -73,7 +66,7 @@ class NotificationCenterController extends Controller
         ]);
         $messages = array(
             'status' => 'success',
-            'message' => 'Notification Posted Successful '. $result ,
+            'message' => 'Notification Posted Successful '. $response->body() ,
         );
         return redirect(route('noti-index'))->with('status', $messages);
     }

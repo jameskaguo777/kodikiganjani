@@ -15,5 +15,8 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
         $this->call(IncomeTaxReturnSeeder::class);
         $this->call(RegisterNewBusinessSeeder::class);
+        $this->call(PaymentConfigurationsSeeder::class);
+        $this->call(AboutInfoSeeder::class);
+        $this->call(PermissionsDataSeeder::class);
     }
 }

@@ -28,25 +28,33 @@
 <body data-base-url="{{url('/')}}">
 
   <script src="{{ asset('assets/js/spinner.js') }}"></script>
-
+  
   <div class="main-wrapper" id="app">
+    @role('super-admin')
       @if (Auth::check())
       @include('layouts.sidebar')
       @endif
+      @endrole
     
     <div class="page-wrapper">
+      @role('super-admin')
         @if (Auth::check())
         @include('layouts.header')
         @endif
+        @endrole
       
       <div class="page-content">
         @include('layouts.notify')
+        @role('super-admin')
+        
         @yield('content')
+        @endrole
+        @yield('login')
       </div>
       @include('layouts.footer')
     </div>
   </div>
-
+  
     <!-- base js -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('assets/plugins/feather-icons/feather.min.js') }}"></script>

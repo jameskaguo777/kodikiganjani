@@ -14,7 +14,8 @@ class AboutInfoSeeder extends Seeder
     {
         //
         DB::table('about_infos')->insert([
-            'id' => 1
+            'id' => 1,
+            'post' => ''
         ]);
     }
 }
