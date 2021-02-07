@@ -31,7 +31,7 @@ class NotificationCenterController extends Controller
 
         $path = $request->file('featured_image_url')->store('notifications');
 
-        $token = "AAAAdPJ82Z8:APA91bGbgcM0aXOw8GDuJWEEccsvhp9ZiDu1wcDELgREn-tt1z0DzlgD622nFgJ6zdTmp9TgTMhUNZdjR4P1MzeTce6h_ERFB3Eub7-aTlb7A1ig_2ECmnc5O5RRfBly04HQLvjUf71i";
+        $token = "[YOUR NOTIFICATION TOKEN]";
 
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
